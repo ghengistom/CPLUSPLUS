@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include<cctype>
+#include <iomanip>
+using namespace std;
+
+void display();
+void getname(char array[], int& i);
+int display1(int a);
+
+
+int main ()
+{
+	char array[100];
+	int count;
+	int i=0;
+	display();
+	getname(array, i);
+	count=display1(i);
+	//print the array in lower case
+	while (array[i]!='\n')
+	{
+		cout<<tolower(array[i]);
+		i++;
+	}
+	
+	cout<<count;
+	system("pause");
+	return 0;
+}
+
+void display()
+{
+	cout<<"Enter your full name: ";
+}
+
+void getname(char array[], int& i)
+{
+	while (cin.get(array[i]), array[i] != '\n')
+	{
+		if (array[i]!=' ')
+		{
+		i++;
+		}
+	}
+}
+	//diplay count
+	int display1(int a)
+{
+	return a;
+}
+
+	
