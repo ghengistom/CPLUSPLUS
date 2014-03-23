@@ -17,12 +17,7 @@ int main ()
 	display();
 	getname(array, i);
 	count=display1(i);
-	//print the array in lower case
-	while (array[i]!='\n')
-	{
-		cout<<tolower(array[i]);
-		i++;
-	}
+
 	
 	cout<<count;
 	system("pause");
