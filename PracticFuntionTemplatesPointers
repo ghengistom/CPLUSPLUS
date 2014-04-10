@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+//get name and age
+void tom(int& a, string& b)
+{
+	cout<<"Please enter your name \n";
+	getline(cin, b);
+	cout<<"Please enter your age. ";
+	cin>>a;
+}
+//display name and age
+void display(int a, string b)
+{
+	cout<<"Hello, "<<b<<" you indicated your age is "<<a<<".";
+}
+
+//mess around with template function
+//get user input
+template <class CalculatorIn>
+void mortgageinput(float& rate, CalculatorIn& time, CalculatorIn& Principle)
+{
+	cout<<"I need the rate\n";
+	cin>>rate;
+	cout<<"I need the time\n";
+	cin>>time;
+	cout<<"I need the priniple";
+	cin>>Principle;
+}
+//do calculations
+template <class Calculator>
+void mortgage(float rate, Calculator time, Calculator Principle, Calculator& Balance)
+{
+	Balance= pow(Principle, (rate*time));
+}
+//display mortgage calculator
+template <class Balance>
+void showBalance(Balance a)
+{
+	cout<<a;
+}
+
+int main ()
+
+{
+	//float z;
+	int Balance;
+	int time, principle;
+	float rate;
+	int a;
+	string b;
+	tom(a, b);
+	display(a,b);
+	mortgageinput(rate, time, principle);
+	mortgage(rate, time, principle, Balance);
+	showBalance(Balance);
+	//cout<<z;
+	cout<<endl;
+	cout<<"what would you like to do next? \n";
+	cout<<"your options are to use the calculator or just go back to the user stuff(1 user 2 for calculator ";
+	//make a variable for next part
+	int response;
+	cin>>response;
+	if (response==1)
+	{
+		tom(a,b);
+		display(a,b);
+	}
+	else if (response==2)
+	{
+		mortgageinput(rate, time, principle);
+		mortgage(rate, time, principle, Balance);
+		showBalance(Balance);
+		//cout<<z;
+	}
+	//PRACTICE WITH POINTERS
+	//int len=4;
+	int a[4]={1,4,6,3}, *p;
+	p=a;
+	cout<<p;
+	system ("pause");
+	return 0;
+}
