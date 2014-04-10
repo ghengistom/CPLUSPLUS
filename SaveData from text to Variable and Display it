@@ -1,0 +1,42 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main ()
+{
+	fstream file;
+	file.open("text.txt", ios::in);
+	//practice 1 dimensional Array
+	struct STUDENT
+	{
+		string name;
+		int age;
+		float gpa;
+		
+	};
+	STUDENT a[3];//={1,2,3,4,5,6};
+
+	
+	//open a file and take in data
+	
+	int counter=0;
+	while (!file.eof())
+	{
+		file>>a[counter].name>>a[counter].age>>a[counter].gpa;
+		counter++;
+	}
+	file.close();
+	//now display contents of file
+	for (int i=0; i<3; ++i)
+	{
+		cout<<a[i].name<<a[i].age<<a[i].gpa;
+	}
+
+	cout<<"hello";
+
+
+	system ("pause");
+	return 0;
+}
