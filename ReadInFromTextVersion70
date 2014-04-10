@@ -1,0 +1,47 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+struct STUDENT
+{
+	string name;
+	int age;
+	float gpa;
+
+};
+
+void readDataFromFile(STUDENT *&p, int & ArraySize)
+{
+	int size;
+	fstream file;
+	file.open("text.txt", ios::in);
+	file>>size;
+	p=new STUDENT[size];
+	ArraySize = size;
+
+	for (int i=0; i<size; ++i)
+	{
+		file>>p[i].name>>p[i].age>>p[i].gpa;
+	}
+	file.close();
+}
+
+void outputData(STUDENT *&p, int ArraySize)
+{
+	for (int i=0; i<ArraySize; ++i)
+	{
+		cout<<p[i].name<<" "<<p[i].age<<" "<<p[i].gpa<<endl;
+	}
+}
+
+int main ()
+{
+	int ArraySize = 0;
+	STUDENT *p; 
+	readDataFromFile(p, ArraySize);
+	outputData(p, ArraySize);
+	system("pause");
+	return 0;
+}
