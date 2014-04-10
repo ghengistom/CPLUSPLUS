@@ -1,0 +1,55 @@
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+using namespace std;
+
+void DispArr1(int* a, int total,int CountElem);
+void FindMaxMin(int* a, int max, int min);
+
+int main ()
+{
+	cout<<fixed<<showpoint<<setprecision(2);
+	int a[10]={9,1,4,5,3,4,6,3,2,7}, *p;
+	p=a;
+	float total=0;
+	int count=0;
+	DispArr1(p, total, count);
+	int max=0, min=0;
+	FindMaxMin(p, max, min);
+
+	
+	
+
+	system ("pause");
+	return 0;
+}
+//displays array
+void DispArr1(int* a, int total, int CountElem)
+{
+	//display array & get total of array & get # of elements in array
+	cout<<"These are the elements of your array. "<<endl;
+	total=0;
+	for (int i=0; i<10; ++i)
+	{
+		cout<<*(a+i)<<" ";
+		total+=*(a+i);
+		CountElem++;
+	}
+	cout<<"Your total is : "<<total<<endl;
+	cout<<"The number of elements in this array is :"<<CountElem<<endl;
+}
+// find max and minimum
+void FindMaxMin(int* a, int max, int min)
+{
+	//find max and min
+	 max=a[0], min=a[0];
+	for (int i=0; i<10; ++i)
+	{
+		if (*(a+i)>max)
+			max=*(a+i);
+		else if (*(a+i)<min)
+			min=*(a+i);
+	}
+	cout<<"The max is: "<<max<<endl;
+	cout<<"The min is: "<<min<<endl;
+}
