@@ -1,3 +1,14 @@
+//---------------------------------------------
+//          Name            Tom
+//          Course          cpsc-121, section 2
+//			Project         No.9 part 2
+//			Due date	    April 10, 2014
+//			Instructor      Prof. Ray Ahmadnia
+//
+// purpose: Read File Into Text Using Dynamic Arrays, Struct, and Functions
+//						cpsc -121
+//						Spring -2014
+//---------------------------------------------
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -28,7 +39,7 @@ void readDataFromFile(STUDENT *&p, int & ArraySize)
 	file.close();
 }
 
-void outputData(STUDENT *&p, int ArraySize)
+void outputData(STUDENT *p, int ArraySize)
 {
 	for (int i=0; i<ArraySize; ++i)
 	{
@@ -45,3 +56,17 @@ int main ()
 	system("pause");
 	return 0;
 }
+
+/*-------------------------------------------------------------------
+Tom 31 2.7
+Joe 33 4
+Steve 21 3.5
+Jared 29 2.1
+Wayne 46 4.7
+Fush 68 3.1
+Bill 42 2.1
+Erin 71 4.3
+Maria 29 3.2
+Press any key to continue . . .
+
+---------------------------------------------------------------------*/
