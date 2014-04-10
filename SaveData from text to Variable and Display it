@@ -14,13 +14,13 @@ int main ()
 		string name;
 		int age;
 		float gpa;
-		
+
 	};
 	STUDENT a[3];//={1,2,3,4,5,6};
 
-	
+
 	//open a file and take in data
-	
+
 	int counter=0;
 	while (!file.eof())
 	{
@@ -31,7 +31,7 @@ int main ()
 	//now display contents of file
 	for (int i=0; i<3; ++i)
 	{
-		cout<<a[i].name<<a[i].age<<a[i].gpa;
+		cout<<a[i].name<<" "<<a[i].age<<" "<<a[i].gpa<<endl;
 	}
 
 	cout<<"hello";
