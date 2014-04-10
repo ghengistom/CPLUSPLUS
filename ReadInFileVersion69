@@ -11,33 +11,6 @@ struct STUDENT
 	float gpa;
 
 };
-STUDENT a[9];
-//save data from text into array
-void DataHolder(string&, int&, float&)
-{
-	int ArraySize;
-	//open a file and take in data
-	fstream file;
-	file.open("text.txt", ios::in);
-	file>>ArraySize;
-	STUDENT *p=new STUDENT[ArraySize]; 
-	for (int i=0; i<ArraySize; ++i)
-	{
-
-		//file>>p[i].name>>p[i].age>>p[i].gpa;
-	}
-	file.close();
-}
-//display data from text
-void Display(string, int, float)
-{
-	//now display contents of file
-	for (int i=0; i<9; ++i)
-	{
-		cout<<a[i].name<<" "<<a[i].age<<" "<<a[i].gpa<<endl;
-	}
-
-}
 
 void readDataFromFile(STUDENT *&p, int ArraySize, fstream &file)
 {
