@@ -1,0 +1,59 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+struct STUDENT
+{
+	string name;
+	int age;
+	float gpa;
+
+};
+STUDENT a[3];
+//save data from text into array
+void DataHolder(string&, int&, float&)
+{
+	//open a file and take in data
+	fstream file;
+	file.open("text.txt", ios::in);
+	int counter=0;
+	while (!file.eof())
+	{
+		file>>a[counter].name>>a[counter].age>>a[counter].gpa;
+		counter++;
+	}
+	file.close();
+}
+//display data from text
+void Display(string, int, float)
+{
+	//now display contents of file
+	for (int i=0; i<3; ++i)
+	{
+		cout<<a[i].name<<" "<<a[i].age<<" "<<a[i].gpa<<endl;
+	}
+
+}
+
+
+int main ()
+{
+	
+	string name;
+	int age;
+	float gpa;
+	//read Data file into function variable
+	DataHolder(name, age, gpa);
+	Display(name, age, gpa);
+	
+	
+	
+	cout<<"hello";
+
+
+	system ("pause");
+	return 0;
+}
+
