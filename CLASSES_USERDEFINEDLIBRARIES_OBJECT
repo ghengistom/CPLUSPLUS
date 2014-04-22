@@ -1,0 +1,60 @@
+/*    HEADER FILE          */
+
+#ifndef MYLIB
+#define MYLIB
+
+template <class T>
+class ONE
+{
+	private: T X,Y;
+	public:	ONE();
+			ONE(T a, T b);
+			void MaxMin(T& mx, T&mn);
+			void Display ();
+			~ONE ();
+};
+template <class T>
+ONE<T> :: ONE()
+{ X=0; Y=0;}
+template <class T>
+ONE<T> :: ONE(T a, T b)
+{
+	X=a; Y=b;
+}
+template <class T>
+void ONE<T>:: MaxMin(T& mx, T& mn)
+{
+	(X>Y)?(mx=X,mn=Y):(mx=Y,mn=X);
+}
+template <class T>
+void ONE<T>:: Display ()
+{
+	cout<<"x="<<X<<"y="<<Y<<endl;
+}
+template <class T>
+ONE<T>:: ~ONE(){}
+
+#endif
+
+/*    HEADER FILE          */
+
+
+/*   MAIN         */
+#include <iostream>
+#include <string>
+#include "Header.h"
+using namespace std;
+
+int main()
+{
+	ONE<int> r; ONE<string> S("Tom", "Adam");
+	r.Display();
+	S.Display();
+	string max, min;
+	S.MaxMin(max,min);
+	cout<<"maximum="<<max<<"min= "<<min;
+	system("pause");
+	return 0;
+}
+
+/*    MAIN        */
