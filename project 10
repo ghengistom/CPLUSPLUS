@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+
+class POINT
+{
+	private: int x,y;
+	public: //constructor to x,y of each vertex ZERO
+				POINT ()
+				{
+					x=0;
+					y=0;
+				};
+			//member to read x and y coordinate of each vertex
+				void ReadData(char vertex)
+				{
+
+				};
+			//friend to compute the distance between vertices p(x,) and q(x,y)
+				friend float Distance(POINT p, POINT q)
+				{
+					return p-q;
+				};
+			// Display member to show the perimeter of ABCD
+				void DisplayPerimeter(float AB, float AC, float CD, float BD)
+				{
+
+				};
+			//destructor to release all memory used by objects in the program
+				~Two()
+				
+};
+
+int main()
+{
+
+	POINT A,B,C,D;
+	cout<<"For the rectangle ABCD:\n";
+	A.ReadData('A');
+
+	//draw the rectangle
+	Display(A, 'c');
+	cout<<"-------------------------------";
+	Display(B, 'B');
+	cout<<endl;
+
+	//compute the length of each side
+	float AB=Distance(A,B);
+	cout<<"\tAB="<<AB<<endl;
+
+	//compute and display perimeter
+	DisplayPerimeter(AB,AC,CD,BD);
+
+	//terminate program
+	return 0;
+}
