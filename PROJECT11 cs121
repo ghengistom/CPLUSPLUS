@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+
+class FIVE
+{private: int x[7];
+ public:
+	 void READ() //read data in array x
+	 {
+		 cout<<"Enter 7 integer data: ";
+		 for (int i=0; i<7; ++i)
+		 {cin>>x[i];}
+		 cout<<endl;
+	 }
+
+	 void Display() //display array x
+	 {
+		 cout<<"All data: ";
+		 for (int i=0; i<7; ++i)
+		 {cout<<x[i]<<" ";}
+		 cout<<endl;
+	 }
+
+	 void FindMaxMin (int& mx, int& mn) // return the max and min data in array x
+	 {
+		 mx=x[0];
+		 mn=x[0];
+		 for (int i=0; i<7; ++i)
+		 {
+			 if (x[i]>mx)
+			 {mx=x[i];}
+			 else if (x[i]<mn)
+			 {mn=x[i];}
+		 }
+		 cout<<"Maximum = "<<mx<<" Minimum = "<<mn;
+	 }
+
+	 int FindTotal() //return the sum of data in array x
+	 {
+		 int Sum=0;
+		 for (int i=0; i<7; ++i)
+		 {
+			 Sum+=x[i];
+		 }
+		 return Sum;
+	 }
+
+};
+
+
+
+int main()
+{
+	int Sum; //holds total for FindTotal()
+	int max, min; //hold max and min
+	FIVE FIVEObject; //create object
+	FIVEObject.READ(); //call READ function of class FIVE
+	FIVEObject.Display(); //display the elements of the array
+	FIVEObject.FindMaxMin(max, min); //call FindMaxMin method of class FIVE
+	
+	Sum=FIVEObject.FindTotal();  //find total of all elements in array
+	cout<<"Total="<<Sum;
+
+		
+	system("pause");
+	return 0;
+
+
+}
+
