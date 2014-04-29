@@ -1,0 +1,59 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+template <class T, int n>
+class SIX
+{
+	private : 
+		struct
+		{
+			T a[n];
+			string Name;
+		}BOX;
+	
+public: void Read()
+		{
+			cout<<"Enter your name:"; cin>>BOX.Name;
+			cout<<BOX.Name<<" please enter "<<n<<" data:";
+			for(int i=0; i<n; ++i)
+				cin>>BOX.a[i];
+		}
+	
+		void SortArray()
+		{
+			sort(BOX.a, BOX.a+n);
+		}
+	
+		void Display()
+		{
+			cout<<BOX.Name<<" this is the sorted list of data in your array a\n";
+			for(int i=0; i<n; ++i)
+			{	cout<<BOX.a[i]<<'\t';}
+				cout<<endl;
+			
+		}
+};
+
+
+
+int main()
+{
+	
+	//BOX a, Name;
+
+	SIX <int, 6 > John;
+	John.Read();
+	John.SortArray();
+	John.Display();
+
+	SIX <string, 5> Mary;
+	Mary.Read();
+	Mary.SortArray();
+	Mary.Display();
+
+
+	system ("pause");
+	return 0;
+}
