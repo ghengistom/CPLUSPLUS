@@ -1,0 +1,72 @@
+#include <iostream>
+#include "Add.h"
+using namespace std;
+
+int main()
+{
+	int a,b,sum;   //these will be variables that you will use to add from user;
+	Add AddObject;    //created an object
+	cout<<"hi please enter your numbers you want to add";
+	cin>>a>>b;
+
+	
+	sum = AddObject.add(a,b);   
+	cout<<sum;
+
+	//make a second object of stuff to add
+	Add AddObject2;
+	cout<<"hi please enter your numbers you want to add";
+	cin>>a>>b;
+
+	sum = AddObject2.add(a,b);
+	cout<<sum;
+
+	system("pause");
+	return 0;
+
+
+}
+
+
+
+
+
+#include <iostream>
+#include "Add.h"
+
+		int a,b;
+
+		Add::Add()
+		{
+			a=0;
+			b=0;
+			
+		}
+	
+
+		int Add::add(int a, int b)
+		{
+			return a+b;
+		}
+
+		Add::~Add()
+		{
+			
+			
+		}
+		
+		
+		
+		#include <iostream>
+
+class Add
+{
+	public:
+		int a,b;
+
+	public:
+		Add();
+		int add(int a, int b);
+		~Add();
+
+};
