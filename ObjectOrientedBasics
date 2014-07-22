@@ -1,0 +1,51 @@
+#include <iostream>
+#include "Push.h"
+using namespace std;
+
+int main()
+{
+	cout<<"hi";
+
+	Push PushObject;
+	PushObject.add(5,6);
+
+
+
+
+	system("pause");
+	return 0;
+
+
+}
+
+
+///////////////////////Push.cpp
+
+#include <iostream>
+#include "Push.h"
+
+		int a,b;
+
+		int Push::add(int a, int b)
+		{
+			return a+b;
+		}
+
+
+
+
+
+/////////////////////header for Push.h
+
+#include <iostream>
+
+class Push
+{
+	private:
+		int a,b;
+
+	public:
+		int add(int a, int b);
+
+
+};
