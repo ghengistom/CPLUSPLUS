@@ -1,0 +1,199 @@
+#include <iostream>
+#include<fstream>
+#include<string>
+#include<algorithm>
+#include<iomanip>
+
+using namespace std;
+struct node
+{
+	string month;
+	node *left;
+	node *right;
+};
+node *root = NULL;
+class BST
+{
+public:
+	//	=============================================Insert===============================================
+	void insert(node *&p, string y)
+	{
+		if (p == NULL)
+		{
+			p = new node;
+			p->month = y;
+			p->left = NULL;
+			p->right = NULL;
+			root = p;
+		}
+		else
+		{
+			if (y < p->month)
+			{
+				insert(p->left, y);
+			}
+			else if (y > p->month)
+			{
+				insert(p->right, y);
+			}
+		}
+	}
+	//	==========================================Insert==================================================
+	//	==========================================Display tree sideways===================================
+	void DisplaySideways(node *p, int sp)
+	{
+		if (p != NULL)
+		{
+			DisplaySideways(p->right, sp += 6);
+			cout << setw(sp) << p->month << endl;
+			DisplaySideways(p->left, sp);
+		}
+	}
+	void DisplaySideways()
+	{
+		int space = 0;
+		DisplaySideways(root, space);
+	}
+	//	==========================================Display tree sideways===================================
+	//	===========================================LoadFile==================================================
+	void Loadfile(string fname, node *&p)
+	{
+		fstream f;
+		f.open(fname, ios::in);
+		string x;
+		int y;
+		while (!f.eof())
+		{
+			f >> x;
+			f >> y;
+			insert(p, x);
+		}
+	}
+	//	=======================================LoadFile====================================================
+
+	//	=====================================DisplayLeaves===================================================
+	void DisplayLeaves(node *p, int& count)
+	{
+		
+		if (p != NULL)
+		{
+			
+			if (p->left == NULL && p->right == NULL)
+			{
+				//cout << p->month << " ";
+				count++;
+			}
+			DisplayLeaves(p->left,count);
+			DisplayLeaves(p->right,count);
+			//cout << count;
+		}
+	//	cout<< count<<" ";
+	}
+	void DisplayLeaves(int &count)
+	{
+		DisplayLeaves(root,count);
+	}
+	//	====================================DisplayLeaves====================================================
+
+	//	============================== DisplayInorder=========================================================
+	void DisplayInorder(node *p)
+	{
+		cout << fixed << showpoint << setprecision(2);
+		if (p != NULL)
+		{
+			DisplayInorder(p->left);
+			cout << setw(10) << p->month << setw(10) << endl;
+			DisplayInorder(p->right);
+		}
+	}
+	//	================================== DisplayInorder====================================================
+
+	//	================================DisplayTwoKids======================================================
+	void DisplayTwoKids(node *p)
+	{
+		if (p != NULL)
+		{
+			if (p->left != NULL && p->right != NULL)
+			{
+				cout << p->month << " ";
+			}
+			DisplayTwoKids(p->left);
+			DisplayTwoKids(p->right);
+		}
+
+	}
+	//	==================================DisplayTwoKids===================================================
+
+	//	===============================DisplayOneKid=========================================================
+	void DisplayOneKid(node *p)
+	{
+		if (p != NULL)
+		{
+			if (p->left != NULL && p->right == NULL)
+			{
+				cout << p->month << " ";
+			}
+			else if (p->left == NULL && p->right != NULL)
+			{
+				cout << p->month << " ";
+			}
+			DisplayOneKid(p->left);
+			DisplayOneKid(p->right);
+		}
+	}
+	//	==================================DisplayOneKid=================================================
+
+	//	=============================== FindHeight=======================================================
+	int FindHeight(node *r)
+	{
+		if (r == NULL)
+			return 0;
+		else
+			return 1 + max(FindHeight(r->left), FindHeight(r->right));
+	}
+	//	================================= FindHeight=======================================================
+
+	//	================================== max=======================================================
+	int max(int x, int y)
+	{
+		return ((x>y) ? x : y);
+	}
+	//	=================================== max========================================================
+
+	//	=================================CountNodes========================================================
+	int CountNodes(node *p)
+	{
+		if (p == NULL)
+		{
+			return 0;
+		}
+		else
+			return 1 + CountNodes(p->left) + CountNodes(p->right);
+	}
+
+	//	==================================CountNodes===================================================
+
+	//	===================================== main=====================================================
+};
+
+int main()
+{
+	string months[12]={ "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+	BST a;
+	node *p = root;
+	for (int i = 0; i < 12; ++i)
+	{
+		a.insert(p, months[i]);
+	}
+	
+	a.DisplayInorder(p);
+
+	cout<<"The total number of nodes are: \n"<<a.CountNodes(p)<<"\n";
+	cout << "The number of leaves are: \n";
+	int count = 0;
+	a.DisplayLeaves(count);     //count leaves
+	cout << count;
+	//a.DisplaySideways();  not working
+	system("pause");
+	return 0;
+}
