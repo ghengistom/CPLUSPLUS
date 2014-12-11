@@ -1,0 +1,12 @@
+	void CopyTree(node *rt, node *&copy)
+	{
+		//based on pre-order traversal
+		if (rt != NULL)
+		{
+			copy = new node;
+			copy->month = rt->month;
+			copy->left = copy->right = NULL;
+			CopyTree(rt->left, copy->left);
+			CopyTree(rt->right, copy->right);
+		}
+	}
