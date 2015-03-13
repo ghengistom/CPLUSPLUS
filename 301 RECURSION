@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std;
+//CLASS DECLARATION -------------------------------
+class NodeType 
+{
+public:
+	NodeType(int = 0); // constructor with default value for
+	// info field
+	int info; // data
+	NodeType * nextPtr; // pointer to next node in the list
+};
+//CLASS DEFINITION -------------------------------
+// Constructor
+NodeType::NodeType(int data)
+{
+	info = data;
+	nextPtr = 0;
+}
+//FUNCTION PROTOTYPES -------------------------------
+// Add a node at front - provided (Non-recursive)
+void insertAtFront(NodeType * &headPtr, int value);
+// Print with a loop - provided (Non-recursive)
+void printLoop(NodeType * headPtr);
+void searchandDelete(NodeType *& crnt, NodeType *& previous, int value);
+//BEGIN MAIN() -------------------------------
+int main()
+{
+	NodeType * head = NULL; //Setting to NULL is important
+	NodeType * previous = NULL;
+	NodeType * crnt = NULL;
+	// add a node with value 5
+	insertAtFront(head, 5);
+	// add a node with value 7
+	insertAtFront(head, 7);
+	// add a node with value 9
+	insertAtFront(head, 9);
+	// print with Loop
+	printLoop(head);
+	//Add function calls to your own functions below
+	searchandDelete(head, previous, 7);
+	cout << "\n\n";
+	printLoop(head);
+	system("pause");
+	return 0;
+} //END MAIN()
+
+//FUNCTION DEFINITIONS -------------------------------
+void insertAtFront(NodeType * &headPtr, int value)
+{
+	NodeType * currentPtr = new NodeType;
+	currentPtr->info = value;
+	currentPtr->nextPtr = headPtr;
+	headPtr = currentPtr;
+}
+void printLoop(NodeType * headPtr)
+{
+	while (headPtr != NULL)
+	{
+		cout << "[ " << headPtr->info << " ]->";
+		headPtr = headPtr->nextPtr;
+	}
+	cout << "NULL" << endl;
+}
+void searchandDelete(NodeType *& crnt, NodeType *& previous, int value)
+{
+	//if user search matches then stop and delete		
+	if (crnt->info == value)
+	{
+		NodeType *next = crnt;
+		//You are deleting the last node in the list
+		if (crnt->nextPtr == NULL)
+		{
+			delete crnt;
+			previous->nextPtr = NULL;
+			next = NULL;
+		}
+		//case if at front of the list						need a pointer set to head
+		//else if ()
+		//CASE delete between nodes meaning you are deleting a node located at in the middle of a list 
+		else
+		{
+			next = next->nextPtr;
+			delete crnt;
+			previous->nextPtr = next;
+		}
+	}
+	//else iterate through
+	else
+	{
+		for (int i = 1; i < 5; ++i)
+		{
+			cout << i;
+		}
+		previous = crnt;
+		searchandDelete(crnt->nextPtr, previous, value);
+	}
+		
+}
