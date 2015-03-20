@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 //CLASS DECLARATION -------------------------------
 class NodeType 
@@ -21,13 +22,19 @@ NodeType::NodeType(int data)
 void insertAtFront(NodeType * &headPtr, int value);
 // Print with a loop - provided (Non-recursive)
 void printLoop(NodeType * headPtr);
-void searchandDelete(NodeType *& crnt, NodeType *& previous, int value);
+void printinorder(NodeType *headPtr);
+void printbackwards(NodeType *headPtr);
+void insertatend(NodeType *headPtr);
+void deletelast(NodeType *&headPtr);
+bool searchandDelete(NodeType *& crnt, int info);
+
 //BEGIN MAIN() -------------------------------
 int main()
 {
 	NodeType * head = NULL; //Setting to NULL is important
-	NodeType * previous = NULL;
-	NodeType * crnt = NULL;
+	NodeType * follower = NULL;
+	NodeType * after = NULL;
+	
 	// add a node with value 5
 	insertAtFront(head, 5);
 	// add a node with value 7
@@ -37,8 +44,21 @@ int main()
 	// print with Loop
 	printLoop(head);
 	//Add function calls to your own functions below
-	searchandDelete(head, previous, 7);
-	cout << "\n\n";
+	cout << endl;
+	printinorder(head);
+	cout << "NULL";
+	cout << endl;
+	printbackwards(head);
+	cout << "NULL";
+	insertatend(head);
+	cout << "this is reprint \n";
+	printLoop(head);
+	cout << "this is reprint \n";
+	deletelast(head);
+	printLoop(head);
+	NodeType * holdhead=head;
+	searchandDelete(head,  7);
+	cout << "search and find \n";
 	printLoop(head);
 	system("pause");
 	return 0;
@@ -54,45 +74,115 @@ void insertAtFront(NodeType * &headPtr, int value)
 }
 void printLoop(NodeType * headPtr)
 {
+	cout << " " << endl;
 	while (headPtr != NULL)
 	{
 		cout << "[ " << headPtr->info << " ]->";
 		headPtr = headPtr->nextPtr;
 	}
-	cout << "NULL" << endl;
+	cout << "NULL" << endl << endl;
 }
-void searchandDelete(NodeType *& crnt, NodeType *& previous, int value)
+void printinorder(NodeType *headPtr)
 {
-	//if user search matches then stop and delete		
-	if (crnt->info == value)
+	
+	if (headPtr== NULL)
 	{
-		NodeType *next = crnt;
-		//You are deleting the last node in the list
-		if (crnt->nextPtr == NULL)
-		{
-			delete crnt;
-			previous->nextPtr = NULL;
-			next = NULL;
-		}
-		//case if at front of the list						need a pointer set to head
-		//else if ()
-		//CASE delete between nodes meaning you are deleting a node located at in the middle of a list 
-		else
-		{
-			next = next->nextPtr;
-			delete crnt;
-			previous->nextPtr = next;
-		}
+		//cout<<endl;
 	}
-	//else iterate through
 	else
 	{
-		for (int i = 1; i < 5; ++i)
-		{
-			cout << i;
-		}
-		previous = crnt;
-		searchandDelete(crnt->nextPtr, previous, value);
+		cout << headPtr->info<<"-> ";
+		printinorder(headPtr->nextPtr);
 	}
+	
+}
+void printbackwards(NodeType *headPtr)
+{
+	if (headPtr == NULL)
+	{
+		cout<<endl;
+	}
+	else
+	{
+		printbackwards(headPtr->nextPtr);
+		cout << headPtr->info << "-> ";
+	}
+}
+
+
+void insertatend(NodeType *headPtr)
+{
+	NodeType *newnode= new NodeType;
+	newnode->info = 676;
+	if (headPtr->nextPtr == NULL)
+	{
+		headPtr->nextPtr = newnode;
+		newnode->nextPtr = NULL;
+	}
+	else 
+	{
+		//cout << headPtr->info << "-> ";
+		insertatend(headPtr->nextPtr);					//traverse to end
+	}	
+}
+void deletelast(NodeType *&headPtr)
+{
+	NodeType *follower;
+	
+	if (headPtr->nextPtr != NULL)				//as long as not null iterate
+	{											//iterates to second to last node
+		deletelast(headPtr->nextPtr);
+	}
+												
+	else
+	{	
+		follower = headPtr;						//set follower pointer =  2nd to last node
+		follower->nextPtr = NULL;				//set 2nd to last node = NULL (since it will be last)
+		headPtr = headPtr->nextPtr;				//iterate to last node 
+		delete headPtr;
+	}
+}
+bool searchandDelete(NodeType *& crnt, int info)
+{
+    if (crnt == NULL) //In this case our list is empty, there is not a single node defined
+    {
+	   return false;
+    }
+    else if (crnt->nextPtr == NULL) //This is either the last node in the list or a list with only one node
+    {
+	   if (crnt->info == info)
+	   {
+		   delete crnt;
+		   crnt=NULL;
 		
+		  return true;
+	   }
+	   else
+	   {
+		  return false;
+	   }
+    }
+    else 
+    {
+													//case if more than 1 node
+	   NodeType * tempPtr;
+	   tempPtr = crnt;
+	   tempPtr = tempPtr->nextPtr;
+
+	   if (crnt->info == info) //Current pointer has a next and our value matches!
+	   {
+		  //delete this node
+		 // crnt->info = NULL;
+		 // crnt->nextPtr=NULL;
+		   delete crnt;
+		   crnt= tempPtr;
+		//  crnt = tempPtr;
+		  return true;
+	   }
+	   else //Current Pointer has a next and our values don't match
+	   {
+		  return searchandDelete(crnt->nextPtr, info );
+	   }
+
+    }
 }
