@@ -1,0 +1,126 @@
+#include <iostream>
+
+using namespace std;
+
+class NodeType
+{
+public:
+	NodeType(int = 0);
+
+	int info;
+	NodeType * nextPtr;
+};
+NodeType::NodeType(int data)
+{
+	info = data;
+	nextPtr = 0;
+}
+void Insert(int &value, NodeType *&head);
+void printList(NodeType * head);
+void DeleteFront(NodeType *&head);
+void Find(NodeType *head, int &value);
+
+int main()
+{
+	NodeType * head = NULL;
+	NodeType * currentPtr;
+	int value = 5;
+
+	int choice;
+	bool cont = 1;
+
+	do
+	{
+		cout << " 1 Add \n 2 Print \n 3 Quit \n 4 Delete \n 5 Find";
+		cin >> choice;
+		if (choice == 3)
+		{
+			cont = 0;
+		}
+		else if (choice == 4)
+		{
+			DeleteFront(head);
+		}
+		else if (choice == 5)
+		{
+			cout << "Please enter a number to check in List";
+			int number;
+			cin >> number;
+			Find(head, number);
+		}
+		else if (choice == 1)
+		{
+			cout << "Enter a number to add ";
+			cin >> value;
+			Insert(value, head);
+		}
+		else if (choice == 2)
+		{
+			printList(head);
+		}
+	} while (cont != 0);
+
+	
+
+	system("pause");
+	return 0;
+}
+void Insert(int &value, NodeType *&head)
+{
+	NodeType *currentPtr = new NodeType;
+	currentPtr->info = value;
+	currentPtr->nextPtr = head;
+	head = currentPtr;
+}
+void printList(NodeType * head)
+{
+	NodeType * currentPtr = head;
+
+	while (currentPtr != NULL)
+	{
+		cout << currentPtr->info << "->";
+		currentPtr = currentPtr->nextPtr;
+	}
+	cout << "NULL";
+	cout << endl;
+}
+void DeleteFront(NodeType *&head)
+{
+	//case if nothing 
+	if (head == NULL)
+	{
+		cout << "Empty Stack";
+		
+	}
+	else
+	{
+		cout << "true in delete";
+		NodeType *crnt;
+		crnt = head;
+		cout << head->info;
+		cout << "crnt" << crnt->info;
+		head = head->nextPtr;
+		delete crnt;
+		crnt = NULL;
+	}
+	
+}
+void Find(NodeType *head, int &value)
+{
+	if (head == NULL)
+	{
+		cout << "empty list \n";
+		head = NULL;
+	}
+	else if (head->info == value)
+	{
+		cout << "Found \n";
+		//delete head;
+		head = NULL;
+	}
+	else if (head->info != value)
+	{
+		Find(head->nextPtr, value);
+	}
+
+}
