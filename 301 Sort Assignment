@@ -1,0 +1,182 @@
+//Given a txt file that looks like 
+/*
+February 12, 2015
+57 $1.80 Premium Milk
+30 $2.00 Berrytale
+25 $3.50 Boroh Danish
+15 $1.89 Marble Taro
+65 $2.54 Chocolate Chip Bowl
+44 $1.45 Mango Bread
+53 $3.15 Coffee Raisin Bread
+32 $2.00 Milk Pudding
+20 $1.50 Red Bean Bread
+34 $2.15 Cheese Bread
+49 $3.75 Brioche
+*/
+
+#include <iostream>
+#include <fstream>
+
+#include <string>
+
+using namespace std;
+void salesfromfile(string filename, string date, int *&qty, float *&price, string *&Name, int& size);
+void TotalSales(int *&qty, float *&price, int &size);
+void sort(int size, int *&qty, float *&price, string *&name, bool(*compare)(int, int));
+bool greaterthan(int left, int right);
+bool lessthan(int left, int right);
+void MoneyMaker(string *&item, int &size, int *&qty, float *&price);
+int main()
+{
+	string filename;
+	string date;
+	int *qty;
+	float *price;
+	string *itemName;
+	int size = 0;
+	bool(*compare)(int, int) = greaterthan;								//pointer called compared pointing to a function with 2 parameters int int
+
+	salesfromfile("sales.txt", date, qty, price, itemName, size);
+	cout << "The gross sales are: ";
+	TotalSales(qty, price, size);
+	cout << endl;
+	sort(size, qty, price, itemName, *compare);
+	MoneyMaker(itemName, size, qty, price);
+
+	system("pause");
+	return 0;
+}
+
+
+void salesfromfile(string filename, string date, int *&qty, float *&price, string *&Name, int& size)
+{
+	int i = 0;
+	size = -1;
+
+	string line;
+	ifstream inFile;							//create first ifstream to count inFile
+	inFile.open(filename);
+	//use this to count number of lines in File
+	while (!inFile.eof())
+	{
+		getline(inFile, line);
+		size++;
+	}
+
+	qty = new int[size];						//make dynamic array
+	char random;
+	price = new float[size];
+	Name = new string[size];
+	inFile.close();
+
+	ifstream inFile1;							//create second ifstream to take in data
+	inFile1.open(filename);
+	getline(inFile1, date);
+
+
+	for (i = 0; i<size; ++i)
+	{
+		inFile1 >> qty[i];
+		inFile1 >> random;
+		inFile1 >> price[i];
+		getline(inFile1, Name[i]);
+	}
+	inFile1.close();
+
+	cout << endl;
+
+	cout << date;
+	cout << "\n\n";
+	for (i = 0; i<size; ++i)
+	{
+		cout << qty[i] << " ";
+		cout << price[i] << " ";
+		cout << Name[i];
+		cout << endl;
+	}
+	//for loop for infile stuff	
+};
+
+
+//find total sales of the day
+void TotalSales(int *&qty, float *&price, int &size)
+{
+	float total = 0;
+	for (int i = 0; i<size; ++i)
+	{
+		total += qty[i] * price[i];
+	}
+	//qty*price
+	cout << total;
+}
+//Most Sold item
+void sort(int size, int *&qty, float *&price, string *&name, bool(*compare)(int, int))
+{
+	int tempInt = 0;
+	double tempD = 0;
+	string tempS;
+
+	for (int i = 0; i<size; ++i)
+	{
+		for (int j = 0; j<size; ++j)
+		{
+			if ((*compare)(qty[i], qty[j]))
+			{
+				//swap qty
+				tempInt = qty[i];
+				qty[i] = qty[j];
+				qty[j] = tempInt;
+
+				//swap price
+				tempD = price[i];
+				price[i] = price[j];
+				price[j] = tempD;
+
+				//swap name
+				tempS = name[i];
+				name[i] = name[j];
+				name[j] = tempS;
+			}
+		}
+	}
+	cout << "The item that sold the most is: \n";
+	cout << name[0];
+	cout << "\n The item that sold the least is: \n";
+	cout << name[size - 1];
+
+	for (int i = size; i>=0; --i)
+	{
+		cout << qty[i] << " ";
+		cout << price[i] << " ";
+		cout << name[i];
+		cout << endl;
+	}
+}
+
+//greater than function
+bool greaterthan(int left, int right)
+{
+	return (left>right);
+}
+//less than function
+bool lessthan(int left, int right)
+{
+	return (left<right);
+}
+//Find item that generate most income
+void MoneyMaker(string *&item, int &size, int *&qty, float *&price)
+{
+	float bigmoney = qty[0]*price[0];
+	string temp;
+
+	for (int i = 0; i<size; ++i)
+	{
+		if (bigmoney<(qty[i] * price[i]))
+		{
+			bigmoney = qty[i] * price[i];
+			temp = item[i];
+		}
+	}
+	cout << "\n\n the money maker is: " << temp;
+	cout << endl;
+}
