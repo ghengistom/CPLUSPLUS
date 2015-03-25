@@ -4,7 +4,7 @@
 using namespace std;
 
 
-class NodeType 
+class NodeType
 {
 public:
 	NodeType(int = 0); // constructor with default value for
@@ -18,7 +18,7 @@ public:
 	void PrintList(NodeType *head);
 	void DeleteFront(NodeType *&head);
 	bool FindValue(NodeType *head, int value);
-//	bool FindandDelete(NodeType *&head, int value);							//pass as reference cuz head can change if you delete head
+	bool FindandDelete(NodeType *&head, int &value);							//pass as reference cuz head can change if you delete head
 };
 // Constructor
 NodeType::NodeType(int data)
@@ -30,13 +30,13 @@ NodeType::NodeType(int data)
 
 int main()
 {
-	
+
 	NodeType *head = NULL;
 	NodeType object1;
 	int value;
-	
-											//sets head pointer to new node
-	
+
+	//sets head pointer to new node
+
 	//cout << object1.head->info;										//test it works!
 	int options;
 	//make a menu with add,print, and quit
@@ -54,7 +54,7 @@ int main()
 		}
 		else if (options == 1)
 		{
-			cout << "Please enter a value to insert into LINKED LIST";
+			cout << "Please enter a value to insert into LINKED LIST \n";
 			cin >> value;
 			object1.InsertFrontLL2(value, head);
 		}
@@ -69,19 +69,19 @@ int main()
 		else if (options == 5)
 		{
 			int find;
-			cout << "Enter a number to search for in list";
+			cout << "Enter a number to search for in list \n";
 			cin >> find;
 			object1.FindValue(head, find);
 		}
 		else if (options == 6)
 		{
 			int find;
-			cout << "Enter a number to find and delete";
+			cout << "Enter a number to find and delete \n";
 			cin >> find;
 			object1.FindandDelete(head, find);
 		}
 	} while (bquit == 1);
-	
+
 
 
 
@@ -92,7 +92,7 @@ int main()
 }
 
 
-void NodeType:: InsertFrontLL2(int value, NodeType *&head)
+void NodeType::InsertFrontLL2(int value, NodeType *&head)
 {
 	if (head == NULL)
 	{
@@ -103,13 +103,13 @@ void NodeType:: InsertFrontLL2(int value, NodeType *&head)
 		head = currentPtr;
 		cout << currentPtr->info;
 	}
-	
+
 	else
 	{
-	NodeType * currentPtr = new NodeType;
-	currentPtr->info = value;
-	currentPtr->nextPtr = head;								//this sets the new node ->next to head of LL
-	head = currentPtr;
+		NodeType * currentPtr = new NodeType;
+		currentPtr->info = value;
+		currentPtr->nextPtr = head;								//this sets the new node ->next to head of LL
+		head = currentPtr;
 	}
 }
 void NodeType::PrintList(NodeType *head)
@@ -119,7 +119,7 @@ void NodeType::PrintList(NodeType *head)
 	{
 		cout << "The LIST is empty!!!!!\n";
 	}
-	while (currentPtr!= NULL)
+	while (currentPtr != NULL)
 	{
 		cout << currentPtr->info;
 		currentPtr = currentPtr->nextPtr;
@@ -168,40 +168,56 @@ bool NodeType::FindValue(NodeType *head, int value)
 		}
 	}
 }
-/*
-bool NodeType::FindandDelete(NodeType *&head, int value)
-{
-NodeType *currentPtr = head;
-//case if node is empty
-if (head == NULL)
-{
-cout << "this list empty!! \n";
-return false;
-}
-//case if not empty
-else if (currentPtr->nextPtr == NULL)			//last node or only one node case
-{
 
-if (currentPtr->info == value)
+bool NodeType::FindandDelete(NodeType *&currentPtr, int &value)
 {
-cout << "It's a match!!\n";
-delete currentPtr;
-currentPtr = NULL;
-head = NULL;
-cout << "Case of 1 node";
-return true;
-}
-else
-{
-return false;
-}
-else
-{
+	//NodeType *currentPtr = head;
+														//case if no nodes in the list
+	if (currentPtr == NULL)
+	{
+		cout << "this list empty!! \n";
+		return false;
+	}
+	
+	else if (currentPtr->nextPtr == NULL)				//case if last node or only one node  
+	{
+		cout << "Case if last node or only one node ";
+		if (currentPtr->info == value)
+		{
+			cout << "It's a match!!\n";
+			delete currentPtr;
+			currentPtr = NULL;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+														//case if deleting middle node
+	else
+	{
+		cout << "Case dleteing middle node";
+		NodeType *TempPtr;
+		TempPtr = currentPtr;
+
+		TempPtr = TempPtr->nextPtr;
+
+
+		cout << "\n\n\n";
+			if (currentPtr->info == value)
+			{
+				delete currentPtr;
+				currentPtr = TempPtr;
+				return true;
+			}
+			else
+			{
+				return FindandDelete(currentPtr->nextPtr, value);
+			}			
+	}
 
 }
 
-
-}
-
-*/
 
