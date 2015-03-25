@@ -1,0 +1,207 @@
+#include <iostream>
+
+
+using namespace std;
+
+
+class NodeType 
+{
+public:
+	NodeType(int = 0); // constructor with default value for
+	// info field
+	int info; // data
+	NodeType * nextPtr; // pointer to next node in the list
+
+	NodeType * head = NULL;
+
+	void InsertFrontLL2(int value, NodeType *&head);
+	void PrintList(NodeType *head);
+	void DeleteFront(NodeType *&head);
+	bool FindValue(NodeType *head, int value);
+//	bool FindandDelete(NodeType *&head, int value);							//pass as reference cuz head can change if you delete head
+};
+// Constructor
+NodeType::NodeType(int data)
+{
+	info = data;
+	nextPtr = 0; // pointer set to NULL
+}
+//Assume the following are declared in the main
+
+int main()
+{
+	
+	NodeType *head = NULL;
+	NodeType object1;
+	int value;
+	
+											//sets head pointer to new node
+	
+	//cout << object1.head->info;										//test it works!
+	int options;
+	//make a menu with add,print, and quit
+	bool bquit = 1;
+
+	do
+	{
+		cout << "Choose one of the following menu options";
+		cout << "\n 1. add \n 2. print \n 3. quit \n 4. delete front node \n 5. Find \n 6. Find & Delete \n ";
+
+		cin >> options;
+		if (options == 3)
+		{
+			bquit = 0;
+		}
+		else if (options == 1)
+		{
+			cout << "Please enter a value to insert into LINKED LIST";
+			cin >> value;
+			object1.InsertFrontLL2(value, head);
+		}
+		else if (options == 2)
+		{
+			object1.PrintList(head);
+		}
+		else if (options == 4)
+		{
+			object1.DeleteFront(head);
+		}
+		else if (options == 5)
+		{
+			int find;
+			cout << "Enter a number to search for in list";
+			cin >> find;
+			object1.FindValue(head, find);
+		}
+		else if (options == 6)
+		{
+			int find;
+			cout << "Enter a number to find and delete";
+			cin >> find;
+			object1.FindandDelete(head, find);
+		}
+	} while (bquit == 1);
+	
+
+
+
+
+	system("pause");
+	return 0;
+
+}
+
+
+void NodeType:: InsertFrontLL2(int value, NodeType *&head)
+{
+	if (head == NULL)
+	{
+		cout << "the list empty\n";
+		NodeType * currentPtr = new NodeType;
+		currentPtr->info = value;
+		currentPtr->nextPtr = NULL;								//this sets the new node ->next to head of LL
+		head = currentPtr;
+		cout << currentPtr->info;
+	}
+	
+	else
+	{
+	NodeType * currentPtr = new NodeType;
+	currentPtr->info = value;
+	currentPtr->nextPtr = head;								//this sets the new node ->next to head of LL
+	head = currentPtr;
+	}
+}
+void NodeType::PrintList(NodeType *head)
+{
+	NodeType *currentPtr = head;
+	if (head == NULL)
+	{
+		cout << "The LIST is empty!!!!!\n";
+	}
+	while (currentPtr!= NULL)
+	{
+		cout << currentPtr->info;
+		currentPtr = currentPtr->nextPtr;
+	}
+	cout << endl;
+}
+
+void NodeType::DeleteFront(NodeType *&head)
+{
+
+	//case if empty
+	if (head == NULL)
+	{
+		cout << "The List is Empty nothing to delete\n";
+	}
+	else
+	{
+		NodeType *currentPtr = head;
+		head = head->nextPtr;
+		delete currentPtr;
+		currentPtr = NULL;
+	}
+
+}
+
+bool NodeType::FindValue(NodeType *head, int value)
+{
+	//case if node is empty
+	if (head == NULL)
+	{
+		cout << "this list empty!! \n";
+	}
+	//case if not empty
+	else
+	{
+		NodeType *currentPtr = head;
+		if (currentPtr->info == value)
+		{
+			cout << "It's a match!!\n";
+			return true;
+		}
+		else
+		{
+			cout << "Sorry not in list \n";
+			return false;
+		}
+	}
+}
+/*
+bool NodeType::FindandDelete(NodeType *&head, int value)
+{
+NodeType *currentPtr = head;
+//case if node is empty
+if (head == NULL)
+{
+cout << "this list empty!! \n";
+return false;
+}
+//case if not empty
+else if (currentPtr->nextPtr == NULL)			//last node or only one node case
+{
+
+if (currentPtr->info == value)
+{
+cout << "It's a match!!\n";
+delete currentPtr;
+currentPtr = NULL;
+head = NULL;
+cout << "Case of 1 node";
+return true;
+}
+else
+{
+return false;
+}
+else
+{
+
+}
+
+
+}
+
+*/
+
