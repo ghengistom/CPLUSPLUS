@@ -1,0 +1,21 @@
+#include "BinarySearchTree.h"
+#include "TreeNode.h"
+#include <iostream>
+
+
+using namespace std;
+
+int main()
+{
+	Tree <int> object1;
+
+	object1.insert(5);
+	object1.insert(2);
+	object1.insert(22);
+
+	object1.print22();
+	object1.deleteItem(22);
+	object1.print22();
+	system("pause");
+	return 0;
+}
