@@ -1,0 +1,33 @@
+		currentPtr = NULL;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//case if deleting middle node
+	else
+	{
+		cout << "Case dleteing middle node";
+		NodeType *TempPtr;
+		TempPtr = currentPtr;
+
+		TempPtr = TempPtr->nextPtr;
+
+
+		cout << "\n\n\n";
+		if (currentPtr->info == value)
+		{
+			delete currentPtr;
+			currentPtr = TempPtr;
+			return true;
+		}
+		else
+		{
+			return FindandDelete(currentPtr->nextPtr, value);
+		}
+	}
+
+}
