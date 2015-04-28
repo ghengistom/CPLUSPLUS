@@ -23,6 +23,7 @@ class List
 			  Preconditions: None.
 				  Postconditions: List is an empty linked list. The current position is 1.*/
 				head = NULL;
+				//currentPtr = head;
 				ItemType info = 1;
 
 			}
@@ -72,15 +73,36 @@ class List
 		  Postconditions: List remains unchanged.*/
 			if (head == NULL)
 			{
+				cout<<"Yes it is empty";
 				return true;
 			}
 			else
+				cout<<"It is not empty";
 				return false;
 		}
 		void goToStart()
 		{ /*Moves the current position to the start of the list.
 		  Postconditions: Current position is set to 1.*/ 
-			currentPtr = head;
+			//make iterator that will take you to last node
+			//do this since head is the newest node everytime
+			//an insertion happens the head is set to new node
+			if (head==NULL)
+			{
+				cout<<"The list is empty";
+			}										
+			else
+			{
+				currentPtr = head;								//set the currentPtr to where the newest node inserted is
+				/*										
+				currentPtr=head;								//iterate to the first number you entered
+				while(currentPtr->next!=NULL)
+				{
+					currentPtr=currentPtr->next;
+				}
+				cout<<currentPtr->info;
+				*/
+			}
+			
 		}
 		void goToNext()
 		{ /*If current position is not at the end of the list, moves the current position to next position.
@@ -88,31 +110,62 @@ class List
 		  If the position had already been at the end of the list, it is
 		  unchanged.
 		  If the list is empty, nothing is changed.*/
-			if (currentPtr->next != NULL)
+			if(head==NULL)
 			{
-				currentPtr = currentPtr->next;
+				cout<<"The list is empty";
 			}
 			else
 			{
-
+				//currentPtr=head;				//might need this line of code
+				if(currentPtr->next!=NULL)
+				{
+					currentPtr=currentPtr->next;
+					cout<<"It is at: "<<currentPtr->info;
+				}
 			}
 		}
 		bool isAtEnd()
 		{ /*Returns True if the list is empty or if the current position is at the end of the list.
 		  Postconditions: List remains unchanged.*/
-			if ((head == NULL )|| (currentPtr->next == NULL))
+			if(head==NULL)
 			{
+				cout<<"List is empty";
 				return true;
 			}
 			else
-				return false;
+			{
+				//currentPtr=head;
+				if (currentPtr->next==NULL)
+				{
+					cout<<"Yes it is at the end suh!";
+					return true;
+				}
+				else
+					return false;
+			}
+			
 
 		}
 		ItemType CurrentItem()
 		{ /*Returns the value of the current item in the linked list. Assumes that the current item exists; i.e., the current position is not at the end of the list (which would make it NULL).
 		  Preconditions: List is not empty, and the current position is not at the end of the list.
 		  Postconditions: List and current position remain unchanged.*/
-			return 1;
+			//currentPtr = head;
+			if (head==NULL)
+			{
+				cout<<"The list is empty";
+			}
+			else
+			{
+				if(currentPtr->next!=NULL)
+				{
+					cout<<"The current item in the list is: "<<currentPtr->info;		//print it here cuz lazy
+					return currentPtr->info;											//give the option in main to copy this 
+				}
+				else
+					cout<<"The current position is at the end of the list and or there is only one node.";
+					cout<<"\n it is pointing at: "<<currentPtr->info;
+			}
 		}
 		void insert()
 		{ /*Inserts the given newItem in the linked list before the item at the current position. After the insertion, the current position
@@ -120,28 +173,88 @@ class List
 		  Preconditions: The list may be empty.
 		  Postconditions: The NewItem is inserted in the linked list before any item that was at the current position. The current position is unchanged and the newly inserted item will now be at that position.*/
 			ItemType number;
-			cout << "Please enter a number:";
-			cin >> number;
-			NodeType *pointer;
-			pointer = new NodeType;
-			pointer->info = number;
-			pointer->next = head;
-			head = pointer;
+			if (head==NULL)								//case if empty
+			{
+				cout << "Please enter a number:";
+				cin >> number;
+				NodeType *pointer;
+				pointer = new NodeType;
+				pointer->info = number;
+				pointer->next = head;
+				head = pointer;
+				currentPtr = head;
+			}											//case if not empty don't mess with currentPtr
+			else
+			{
+				cout << "Please enter a number:";
+				cin >> number;
+				NodeType *pointer;
+				pointer = new NodeType;
+				pointer->info = number;
+				pointer->next = head;
+				head = pointer;
+			}
+			
+			
 
 		}
 		void deleteCurrentItem()
 		{ /*Deletes the item in the linked list at the current position. Assumes that the current item exits.
 		  Preconditions: List is not empty, and the current position is not at the end of the list.
 		  Postconditions: The item at the current position has been deleted. The current position remains unchanged with respect to the list: If the item had been the last item, the current position will be at the end of the list.*/
+			if(head==NULL)
+			{
+				cout<<"The list is empty!";
+			}
+			else
+			{
+				//case if 1 node or at the end
+				if(currentPtr->next==NULL)
+				{
+					cout<<"the current position is at the end of the list ";
+					
+				}												//case if last node
+				else
+				{
+					//case if current is at the begining
+					if(currentPtr==head)
+					{
+						head = head->next;
+						delete currentPtr;
+						currentPtr = head;
+					}
+					else
+					{
+						NodeType* tempPointer = head;				//iterate this pointer to one before current for connecting
+						while (tempPointer->next!=currentPtr)
+						{
+							tempPointer=tempPointer->next;			//iterate to one before;
+						}
+					
+						tempPointer=currentPtr->next;
+						//cout<<"The current Position is at: "<<currentPtr->info;
+						delete currentPtr;
+						currentPtr = tempPointer;
+						delete tempPointer;
+					}
+					
+				}
+			}
 		}
 		int currentPosition()
 		{ /*Returns the number of the current position. If there is an item at the current position, it will return the relative position of the item in the list. If the position is at the end of the list, it will return 1 + the number of items in the list(i.e. 4 items in list, the function would return 5).
 		  Postconditions: List and current position remains unchanged.*/
 		}
+
 		bool display()
 		{
 			cout<<"\n\n";
-			if (head != NULL)
+			if (head == NULL)
+			{
+				cout<<"The list is empty";
+				return false;
+			}
+			else
 			{
 				NodeType *Iterator = head;
 				while (Iterator != NULL)
@@ -151,8 +264,7 @@ class List
 				}
 				return true;
 			}
-			else
-				return false;
+				
 		}
 	};
 
