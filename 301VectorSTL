@@ -1,0 +1,158 @@
+#ifndef LONG_DECIMAL_INT_H
+#define LONG_DECIMAL_INT_H
+#include <iostream>
+#include <vector>
+#include <iterator>
+using namespace std;
+class LongDecimalInt
+{
+public:
+        LongDecimalInt(unsigned long long int n = 0);
+        void doubleNumber();
+        void print();
+        void addDigits();
+        LongDecimalInt operator+(const LongDecimalInt right);
+private:
+        vector<int> number;
+};
+ 
+LongDecimalInt::LongDecimalInt(unsigned long long int n) //Constructor
+{
+        do
+        {
+                number.push_back(n % 10);
+        } while (n /= 10);
+}
+ 
+void LongDecimalInt::doubleNumber() //double the number
+{
+        vector<int> number2;
+        int num = 0;
+        int workingnum = 0;
+        int carry = 0;
+        vector<int>::const_iterator j;
+        for (j = number.begin(); j != number.end(); j++)
+        {
+                num = *j * 2;
+                if (num > 10 && carry == 0)
+                {
+                        carry = num / 10;
+                        number2.push_back(num % 10);
+ 
+                }
+                else if (num < 10 && carry == 0)
+                {
+                        number2.push_back(num);
+                }
+                else if (num < 10 && carry > 0)
+                {
+                        workingnum = num + carry;
+                        if (workingnum < 10)
+                        {
+                                number2.push_back(workingnum);
+                                carry = 0;
+                        }
+                        else
+                        {
+                                carry = workingnum / 10;
+                                number2.push_back(workingnum % 10);
+                        }
+                }
+                else
+                {
+                        workingnum = num + carry;
+                        carry = workingnum / 10;
+                       number2.push_back(workingnum % 10);
+                       number2.push_back(carry);
+                }                      
+        }      
+        number.swap(number2);
+     
+}
+ 
+void LongDecimalInt::print() //Prints the vector
+{
+        vector<int>::const_reverse_iterator i;
+        for (i = number.rbegin(); i != number.rend(); i++)
+        {
+                cout << *i << ", ";
+        }
+ cout<<endl;
+}
+ 
+void LongDecimalInt::addDigits() //Adds the digits of a vector together
+{
+        int sum = 0;
+        vector<int>::const_iterator a;
+        for (a = number.begin(); a != number.end(); a++)
+        {
+                sum += *a;
+        }
+        cout << sum << endl;
+}
+ 
+LongDecimalInt LongDecimalInt :: operator+ (const LongDecimalInt right)
+{
+        LongDecimalInt total = *this;
+        LongDecimalInt rhs = right;
+        total = rhs + total;
+        return total;
+}
+#endif
+
+/*
+#include <iostream>
+#include <vector>
+#include "LongDecimalInt.h"
+#include <cmath>
+#include <iterator>
+
+int main ()
+{
+	LongDecimalInt l(798979879);
+	l.print();
+	l.doubleNumber();
+	l.print();
+	l.addDigits();
+	/*
+    std::vector<double> a;
+    std::vector<double>::const_iterator i;
+    a.push_back(1);
+    a.push_back(2);
+    a.push_back(3);
+    a.push_back(4);
+    a.push_back(5);
+	a.pop_back();
+    for(i=a.begin(); i!=a.end(); ++i){
+    std::cout<<(*i)<<std::endl;
+	}
+   */
+
+  system("pause");
+  return 0;
+}
+
+//quiz questions
+/*
+1. name 3 benefits of using an itterator instead of a count.
+i. it can handle variable size containers
+ii. built in library encapsulates processes that take time to create
+iii. same advantages as pointers without the risk of pointers
+
+2. What does a STL "binder" do and why is it useful?
+A function taking a function and a value and returning a function object.
+
+3. What is the difference between emplace_back and push_back? How and why would you use emplace_back?
+What keyword is unneeccessary when using emplace_back?
+
+a.
+emplace_back-Constructs and places an element in the back of the vector
+push_back - adds element to the end of the vector
+b. 
+You would use emplace_back if you want to create an element (which makes it dynamic) on the fly and the place
+it at the end. 
+c.
+
+
+*/
+*/
