@@ -1,0 +1,491 @@
+#ifndef CHARACTERS_H
+#define CHARACTERS_H
+#include <iostream>
+#include <string>
+using namespace std;
+// BASE CLASS ---------------------------------------------------
+class Character {
+protected: // NOT PRIVATE
+	string description;
+	string name;
+public:
+	Character(){};
+	~Character(){};
+	void setName(string n)
+	{
+		name = n;
+	}
+	string getName()
+	{
+		return name;
+	}
+	void setDescription(string d)
+	{
+		description = d;
+	}
+	string getDescription()
+	{
+		return description;
+	}
+	virtual void move(int i) // Virtual Function
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " walks forward." << endl;
+			break;
+		case 1:
+			cout << name << " walks backward." << endl;
+			break;
+		case 2:
+			cout << name << " jumps to the right." << endl;
+			break;
+		case 3:
+			cout << name << " jumps to the left." << endl;
+			break;
+		default:
+			cout << name << " dances." << endl;
+			break;
+		}
+	}//end move function
+	virtual void speak(int i)
+	{
+		switch (i)
+		{
+			case 0:
+				cout << name << " shouts, \" Hey! You're great at programming!\"." << endl;
+				break;
+			case 1:
+				cout << name << " says, \" Do you have any tater tots?\"" << endl;
+				break;
+			case 2:
+				cout << name << " whispers, \" When is class over?\"" << endl;
+				break;
+			case 3:
+				cout << name << " cries, \" IS IT SUMMER YET?!\"" << endl;
+				break;
+			default:
+				cout << name << " laughs, \" Getting here was a mistake!\"" << endl;
+				break;
+		}
+	}//end speak function
+	// ADD A NEW VIRTUAL FUNCTION FOR THE CLASS HERE
+	virtual void run(int i)
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " giggles.\n";
+			break;
+		case 1:
+			cout << name << " smiles.\n"; 
+			break;
+		case 2:
+			cout << name << " byebye.\n";
+			break;
+		}
+	}
+};
+
+//DERIVED CLASS -----------------------------------------------------
+class Reptile : public Character {
+protected:
+	//Add any new data memeber here
+public:
+	//Add set and get functions for new data memeber here
+	void setDescription(string d)
+	{
+		description = d;
+	}
+	string getDescription()
+	{
+		return description;
+	}
+	virtual void move(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " flies forward." << endl;
+			break;
+		case 1:
+			cout << name << " flies backward." << endl;
+			break;
+		case 2:
+			cout << name << " dives to the right." << endl;
+			break;
+		case 3:
+			cout << name << " dives to the left." << endl;
+			break;
+		default:
+			cout << name << " shoots fire." << endl;
+			break;
+		}
+	}//end move function
+
+	virtual void speak(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " roars, \" GRAAAAAAH!\"." << endl;
+			break;
+		case 1:
+			cout << name << " puffs out smoke through the nostrils." << endl;
+			break;
+		case 2:
+			cout << name << " burps fire." << endl;
+			break;
+		case 3:
+			cout << name << " licks its lips and grins at you." << endl;
+			break;
+		default:
+			cout << name << " laughs, \" I think you'd be great with ketchup!\"" << endl;
+			break;
+		}
+	}//end speak function
+
+	virtual void fly(int i)
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " waves goodbye.\n"; break;
+		case 1:
+			cout << name << " laughs at you.\n"; break;
+		case 2:
+			cout << name << " throws rocks at you.\n"; break;
+		case 3:
+			cout << name << " throws fire at you.\n"; break;
+		}
+	}
+};
+
+//DERIVED CLASS -----------------------------------------------------
+class beast : public Character {
+protected:
+	//Add any new data memeber here
+public:
+	//Add set and get functions for new data memeber here
+	void setDescription(string d)
+	{
+		description = d;
+	}
+	string getDescription()
+	{
+		return description;
+	}
+	virtual void move(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " leap forward.\n";
+			break;
+		case 1:
+			cout << name << " step back.\n";
+			break;
+		case 2:
+			cout << name << " roll right.\n";
+			break;
+		case 3:
+			cout << name << " roll left.\n" ;
+			break;
+		default:
+			cout << name << "roar\n" ;
+			break;
+		}
+	}//end move function
+
+	virtual void speak(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " roar" << endl;
+			break;
+		case 1:
+			cout << name << "yeah buddy" << endl;
+			break;
+		case 2:
+			cout << name << " giggles" << endl;
+			break;
+		case 3:
+			cout << name << "what's going on?" << endl;
+			break;
+		default:
+			cout << name << " I wake up in the morning and I go outside" << endl;
+			break;
+		}
+	}//end speak function
+
+	virtual void fly(int i)
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " waves goodbye.\n"; break;
+		case 1:
+			cout << name << " laughs at you.\n"; break;
+		case 2:
+			cout << name << " throws rocks at you.\n"; break;
+		case 3:
+			cout << name << " throws paper at you.\n"; break;
+		}
+	}//endfly function
+};
+
+//DERIVED CLASS -----------------------------------------------------
+class RonnieColeman : public Character {
+protected:
+	//Add any new data memeber here
+public:
+	//Add set and get functions for new data memeber here
+	void setDescription(string d)
+	{
+		description = d;
+	}
+	string getDescription()
+	{
+		return description;
+	}
+	virtual void move(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " strive forward." << endl;
+			break;
+		case 1:
+			cout << name << " move BackWards." << endl;
+			break;
+		case 2:
+			cout << name << " roll to right." << endl;
+			break;
+		case 3:
+			cout << name << "roll to left." << endl;
+			break;
+		default:
+			cout << name << " Shoot flames." << endl;
+			break;
+		}
+	}//end move function
+
+	virtual void speak(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " hello.\n";
+			break;
+		case 1:
+			cout << name << " yeah buddy\n";
+			break;
+		case 2:
+			cout << name << " light weight\n";
+			break;
+		case 3:
+			cout << name << " ain't nothing but a peanut\n";
+			break;
+		default:
+			cout << name << " light weight baby \n" ;
+			break;
+		}
+	}//end speak function
+
+	virtual void fly(int i)
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " see yah\n"; break;
+		case 1:
+			cout << name << " giggles\n"; break;
+		case 2:
+			cout << name << "winks at you.\n"; break;
+		case 3:
+			cout << name << " picks up a weight and drops it\n"; break;
+		}
+	}//end fly function
+};
+//DERIVED CLASS -----------------------------------------------------
+class HulkHogan : public Character {
+protected:
+	//Add any new data memeber here
+public:
+	//Add set and get functions for new data memeber here
+	void setDescription(string d)
+	{
+		description = d;
+	}
+	string getDescription()
+	{
+		return description;
+	}
+	virtual void move(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " move forward." << endl;
+			break;
+		case 1:
+			cout << name << " step backward." << endl;
+			break;
+		case 2:
+			cout << name << " lounge right." << endl;
+			break;
+		case 3:
+			cout << name << " lounge left." << endl;
+			break;
+		default:
+			cout << name << "taunt" << endl;
+			break;
+		}
+	}//end move function
+
+	virtual void speak(int i) //virtual keyword unneccessary
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " nobody messes with the hulkster" << endl;
+			break;
+		case 1:
+			cout << name << " you're watching the wwf!!" << endl;
+			break;
+		case 2:
+			cout << name << " I'm gonna git you!" << endl;
+			break;
+		case 3:
+			cout << name << " ARRRRRRr" << endl;
+			break;
+		default:
+			cout << name << "You're mine!" << endl;
+			break;
+		}
+	}//end speak function
+
+	virtual void exit(int i)
+	{
+		switch (i)
+		{
+		case 0:
+			cout << name << " waves goodbye.\n"; break;
+		case 1:
+			cout << name << " laughs at you.\n"; break;
+		case 2:
+			cout << name << " throws pebbles at you.\n"; break;
+		case 3:
+			cout << name << " throws salt at you.\n"; break;
+		}
+
+	}//end fly function
+};
+#endif
+
+
+#include <iostream>
+#include <string>
+#include <stdlib.h> // Include for rand()
+#include <time.h> // Include for time()
+#include "Poly.h"
+using namespace std;
+void printMenu();
+const int RANGE = 4; // Determines the range of values used for cases & index
+// You should change this value based on your range of
+// cases and characters
+int main()
+{
+	(srand(time(NULL))); // determines how random num is generated
+	/* Below generates a random number between 0 - (RANGE-1)*/
+	int y, character_index = rand() % RANGE;
+	string temp; // Used to read in user dialogue
+	char choice = '*';
+	Character * species[4];
+	// CONTAINER OF BASE CLASS POINTERS
+	/* You may add more characters. However, 4 is the minimum.
+	* Each index should store a new character of one of your
+	* derived class of Character. Reptile class is repeated
+	* due to the fact that it is the only derived class currently implemented */
+	//Reptile 1 - You will put your own derived class here
+	Reptile dragon;
+	dragon.setName("Draco");
+	dragon.setDescription("green and slimey with scales");
+	/*dependent on container*/
+	species[0] = &dragon; // base class pointer points to address of dragon
+	//Reptile 2 - You will put another 1 of your own derived class here
+	RonnieColeman minion;
+	minion.setName("Macho Man");
+	minion.setDescription("Cracked Out and ripped");
+	/*dependent on container*/
+	species[1] = &minion; // base class pointer points to address of wyvern
+	//Reptile 3 - You will put a different 1 your own derived class here
+	beast lion;
+	lion.setName("Hulk Hogan");
+	lion.setDescription("Ripped Raging");
+	/*dependent on container*/
+	species[2] = &lion; /* base class pointer points to
+								  address of largeDragon*/
+	//Reptile 4 - You will put your final derived class here
+	HulkHogan randy;
+	randy.setName("Ted Deviousy");
+	randy.setDescription("Smooth Talker");
+	/*dependent on container*/
+	species[3] = &randy; /* base class pointer points to
+								 address of tinyDragon*/
+	/* Look at the syntax of the next 2 lines incase you get stuck... You can also change the text of these lines*/
+	/*dependent on container*/
+	string type[4] = { "reptile", "pokemon", "beast", "shark" };
+	cout << "A " << type[character_index] << " that is "
+		<< species[character_index]->getDescription()
+		<< " appears in front of you!" << endl;
+	cout << "It is called " << species[character_index]->getName()
+		<< "!" << endl;
+	do
+	{
+		printMenu();
+		cin >> choice;
+		choice = toupper(choice);
+		string message;
+		y = rand() % RANGE; // creates a value from 0 - [Range-1]
+		switch (choice)
+		{
+		case 'M':
+		{
+					species[character_index]->move(y);
+		}
+			break;
+		case 'S':
+		{
+					cout << "You: ";
+					cin >> message;
+			 species[character_index]->speak(y);
+		}
+			break;
+		case 'Q':
+		{
+			species[character_index]->run(y);
+		}
+			break;
+		default:
+			cout << "The creature stares at you...it is confused." << endl;
+			break;
+		}
+	}
+	while (choice != 'Q');
+	// You can create your own ending!
+	//cout <<"The creature waves goodbye." <<endl;
+	system("pause");
+	return 0;
+}
+void printMenu()
+{
+	/* You can add to the Menu, but you may not delete an option from it*/
+	cout << endl << "What do you do? ----------" << endl;
+	cout << "M | Move towards it " << endl;
+	cout << "S | Say something " << endl;
+	cout << "Q | RUN AWAY!!!!! " << endl;
+	/* You can change "RUN AWAY!!!!!" to whatever you want*/
+	cout << ">> ";
+}
