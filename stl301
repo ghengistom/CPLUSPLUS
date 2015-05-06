@@ -1,0 +1,111 @@
+#ifndef LONG_DECIMAL_INT_H
+#define LONG_DECIMAL_INT_H
+#include <iostream>
+#include <vector>
+#include <iterator>
+using namespace std;
+
+class LongDecimalInt
+{
+private:
+	vector<int> number;
+public:
+	LongDecimalInt(unsigned long long int n = 0);
+	void doubleNumber();
+	void print();
+	void addDigits();
+	LongDecimalInt operator+(const LongDecimalInt right);
+
+};
+void LongDecimalInt::addDigits()
+{
+	int sum = 0;
+	vector<int>::const_iterator p;
+	for (p = number.begin(); p != number.end(); p++)
+	{
+		sum += *p;
+	}
+	cout << sum << endl;
+}
+
+void LongDecimalInt::print()
+{
+	vector<int>::const_reverse_iterator i;
+	for (i = number.rbegin(); i != number.rend(); i++)
+	{
+		cout << *i << ", ";
+	}
+	cout << endl;
+}
+void LongDecimalInt::doubleNumber()
+{
+	int co = 0;
+	vector<int> number2;
+	int num = 0;
+	int livenum = 0;
+
+	vector<int>::const_iterator i;
+	for (i = number.begin(); i != number.end(); i++)
+	{
+		num = *i * 2;
+		
+		if (num < 10 && co > 0)
+		{
+			livenum = num + co;
+			if (livenum < 10)
+			{
+				number2.push_back(livenum);
+				co = 0;
+			}
+			else
+			{
+				co = livenum / 10;
+				number2.push_back(livenum % 10);
+			}
+		}
+		else if (num > 10 && co == 0)
+		{
+			co = num / 10;
+			number2.push_back(num % 10);
+
+		}
+		else if (num < 10 && co == 0)
+		{
+			number2.push_back(num);
+		}
+
+		else
+		{
+			
+			livenum = num + co;
+			if (livenum < 10)
+			{
+				number2.push_back(livenum);
+				co = 0;
+			}
+			else
+			{
+				co = livenum / 10;
+				number2.push_back(livenum % 10);
+			}
+		}
+		
+	}
+	if (co > 0)
+	{
+		number2.push_back(co);
+		co = 0;
+	}
+	number.swap(number2);
+
+}
+LongDecimalInt::LongDecimalInt(unsigned long long int n)
+{
+do
+{
+	number.push_back(n % 10);
+} while (n /= 10);
+}
+
+
+#endif
