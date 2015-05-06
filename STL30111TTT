@@ -1,0 +1,187 @@
+#ifndef LONG_DECIMAL_INT_H
+#define LONG_DECIMAL_INT_H
+#include <iostream>
+#include <vector>
+#include <iterator>
+using namespace std;
+
+class LongDecimalInt
+{
+private:
+	vector<int> number;
+public:
+	LongDecimalInt(unsigned long long int n = 0);
+	void doubleNumber();
+	void print();
+	void addDigits();
+	LongDecimalInt operator+(const LongDecimalInt right);
+
+};
+void LongDecimalInt::addDigits()
+{
+	int sum = 0;
+	vector<int>::const_iterator p;
+	for (p = number.begin(); p != number.end(); p++)
+	{
+		sum += *p;
+	}
+	cout << sum << endl;
+}
+
+void LongDecimalInt::print()
+{
+	vector<int>::const_reverse_iterator i;
+	for (i = number.rbegin(); i != number.rend(); i++)
+	{
+		cout << *i ;
+	}
+	cout << endl;
+}
+void LongDecimalInt::doubleNumber()
+{
+	int co = 0;
+	vector<int> number2;
+	int num = 0;
+	int livenum = 0;
+
+	vector<int>::const_iterator i;
+	for (i = number.begin(); i != number.end(); i++)
+	{
+		num = *i * 2;
+		
+		if (num < 10 && co > 0)
+		{
+			livenum = num + co;
+			if (livenum < 10)
+			{
+				number2.push_back(livenum);
+				co = 0;
+			}
+			else
+			{
+				co = livenum / 10;
+				number2.push_back(livenum % 10);
+			}
+		}
+		else if (num > 10 && co == 0)
+		{
+			co = num / 10;
+			number2.push_back(num % 10);
+
+		}
+		else if (num < 10 && co == 0)
+		{
+			number2.push_back(num);
+		}
+
+		else
+		{
+			
+			livenum = num + co;
+			if (livenum < 10)
+			{
+				number2.push_back(livenum);
+				co = 0;
+			}
+			else
+			{
+				co = livenum / 10;
+				number2.push_back(livenum % 10);
+			}
+		}
+		
+	}
+	if (co > 0)
+	{
+		number2.push_back(co);
+		co = 0;
+	}
+	number.swap(number2);
+
+}
+LongDecimalInt::LongDecimalInt(unsigned long long int n)
+{
+do
+{
+	number.push_back(n % 10);
+} while (n /= 10);
+}
+
+
+#endif
+
+
+
+
+
+
+//collaborated with Elliot for this assignment
+#include <iostream>
+#include <vector>
+#include "LongDecimalInt.h"
+
+using namespace std;
+
+int main()
+{
+	cout << "Num (12799999999999872) :";
+	LongDecimalInt num(12799999999999872);
+	num.print();
+	cout << endl << "double value should be 25599999999999744 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 51199999999999488 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 102399999999998976 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 204799999999997952 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "Add value should be 126 : ";
+	num.addDigits();
+	cout << " " << endl;
+	cout << endl << "double value should be 409599999999995904 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 819199999999991808 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be TOO MUCH 1638399999999983616: "; // Could not be stored in long long int
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	system("pause");
+	return 0;
+}
+
+//quiz questions
+/*
+1. name 3 benefits of using an itterator instead of a count.
+i. it can handle variable size containers
+ii. built in library encapsulates processes that take time to create
+iii. same advantages as pointers without the risk of pointers
+
+2. What does a STL "binder" do and why is it useful?
+iT converts binary functions to regular functions
+by using a giving value as it's arguement at the runtime. ("https://www.mochima.com/tutorials/STL_algorithms.html")
+
+3. What is the difference between emplace_back and push_back? How and why would you use emplace_back?
+What keyword is unneeccessary when using emplace_back?
+
+a.
+The difference between the two is that push back requires a object type
+b.
+
+If you want to insert an object of the same type in the container and don't want to write extra code.
+c.
+<Object-type>
+
+*/
