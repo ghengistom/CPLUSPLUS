@@ -1,0 +1,70 @@
+//collaborated with Elliot for this assignment
+#include <iostream>
+#include <vector>
+#include "LongDecimalInt.h"
+
+using namespace std;
+
+int main()
+{
+	cout << "Num (12799999999999872) :";
+	LongDecimalInt num(12799999999999872);
+	num.print();
+	cout << endl << "double value should be 25599999999999744 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 51199999999999488 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 102399999999998976 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 204799999999997952 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "Add value should be 126 : ";
+	num.addDigits();
+	cout << " " << endl;
+	cout << endl << "double value should be 409599999999995904 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be 819199999999991808 : ";
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	cout << endl << "double value should be TOO MUCH 1638399999999983616: "; // Could not be stored in long long int
+	num.doubleNumber();
+	num.print();
+	cout << " " << endl;
+	system("pause");
+	return 0;
+}
+
+//quiz questions
+/*
+1. name 3 benefits of using an itterator instead of a count.
+i. it can handle variable size containers
+ii. built in library encapsulates processes that take time to create
+iii. same advantages as pointers without the risk of pointers
+
+2. What does a STL "binder" do and why is it useful?
+iT converts binary functions to regular functions
+by using a giving value as it's arguement at the runtime. ("https://www.mochima.com/tutorials/STL_algorithms.html")
+
+3. What is the difference between emplace_back and push_back? How and why would you use emplace_back?
+What keyword is unneeccessary when using emplace_back?
+
+a.
+The difference between the two is that push back requires a object type
+b.
+
+If you want to insert an object of the same type in the container and don't want to write extra code.
+c.
+<Object-type>
+
+*/
