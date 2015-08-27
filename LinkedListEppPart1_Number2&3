@@ -1,0 +1,217 @@
+/////////////////////////////////////////////////////////////////////////////////////
+//        MAIN
+/////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+#include "IntegerList.h"
+
+using namespace std;
+
+int main()
+{
+	int number=0;
+	int position=0;
+	bool more=0;
+	cout << "THis is the create a list program";
+	cout << endl;
+	cout << "Please enter a number to insert and a position to insert it on this list. \n\n";
+	
+	IntegerList object1;
+	
+	while (more != 1)
+	{
+		cout << endl;
+		cin >> number;
+		cin >> position;
+		object1.AddAtPosition(number, position);
+		cout << "more numbers?(0 for YES 1 for NO)";
+		cin >> more;
+		
+		if (more == 1)
+		{
+			more = 1;
+		}
+		else if (more == 0)
+		{
+			more = 0;
+		}
+		else
+		{
+			more = 1;
+			cin.ignore();
+		}
+
+		
+	}
+	object1.display();
+	cout << endl;
+	cout << "Adding up all the nodes gives you: ";
+	object1.sum();
+	system("pause");
+	return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////////
+//       END     MAIN
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+//  IntegerList.h
+/////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+#include "IntListNode.h"
+
+using namespace std;
+
+class IntegerList
+{
+public:
+	NodeJ *head;
+	NodeJ *iterator;
+	IntegerList()
+	{
+		head = NULL;
+		iterator = head;
+	}
+	void AddAtPosition(int num, int position)
+	{
+		NodeJ *tmp = head;
+		NodeJ *p = new NodeJ;
+		p->num = num;
+		p->next = NULL;
+
+		//add a number at a certain position
+		//if pos > length of list add to end
+		if (IsEmpty() == 1)		//empty case
+		{
+			head = p;
+		}
+		else if (head->next == NULL)		//if only one case
+		{
+			//can either be in 1st or 2nd position
+			//case if wants to be first
+			if (position == 0)
+			{
+				p->next = head;
+				//head->next = p;
+				head = p;
+			}//else case if 2nd position
+			else
+			{
+				head->next = p;
+			}
+		}
+		else								//all other cases greater than 1
+		{
+			if (position > count())	  //if position>length of list new node goes @end
+			{
+				while (tmp->next != NULL)
+				{
+					tmp = tmp->next;
+				}					//this iterates to end of list
+				tmp->next = p;		//sets next inside node pointing to new node
+			}
+			else
+			{
+									//case if front insertion, back, or middle
+				//front case
+				if (position == 0)
+				{
+					p->next = head;
+					head = p;
+				}//case if back
+				else if (position == count())
+				{
+					while (tmp->next != NULL)
+					{
+						tmp = tmp->next;
+					}
+					tmp->next = p;
+					p->next = NULL;
+				}
+				else
+				{
+					tmp = head;
+					NodeJ *tmp2 = tmp;					//iterate to position for insertion
+					for (int i = 0; i < position; ++i)
+					{
+						tmp2 = tmp;
+						tmp = tmp->next;
+					}
+					tmp2->next = p;
+					p->next = tmp;
+					tmp->next = NULL;
+				}
+				
+			}
+		}
+	}
+	bool IsEmpty()
+	{
+		if (head == NULL)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+	int count()
+	{
+		int count1=0;
+		NodeJ *tmp = head;
+		while (tmp != NULL)
+		{
+			tmp = tmp->next;
+			count1++;
+		}
+		return count1++;
+	}
+	void display()
+	{
+		NodeJ *tmp = head;
+		//case if empty
+		if (IsEmpty() == true)
+		{
+			cout << "\n \n THis empty ";
+		}
+		else
+		{
+			cout << tmp->num;
+			while (tmp->next != NULL)
+			{
+				tmp = tmp->next;
+				cout << tmp->num;
+			}
+		}	
+	}
+	void sum()
+	{
+		cout<<sum(head);
+	}
+	int sum(NodeJ *head)
+	{
+		if (head== NULL)
+		{
+			return 0;
+		}
+		else
+		{
+			return head->num + sum(head->next);
+		}
+	}
+};
+/////////////////////////////////////////////////////////////////////////////////////
+//            END      IntegerList.h
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+//            IntListNode.h
+/////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+
+struct NodeJ
+{
+	int num;
+	NodeJ *next;
+};
+/////////////////////////////////////////////////////////////////////////////////////
+//          END   IntListNode.h
+/////////////////////////////////////////////////////////////////////////////////////
