@@ -1,0 +1,181 @@
+//Description:      This program copies data from text into a BST
+//					and displaying it in mulitple portions
+//====================================================================
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+using namespace std;
+struct node
+	{
+		string month;
+		int day;
+		node *left, *right;
+	};
+class BST
+{
+public:
+//=========================== insert ==================================
+	void insert (node *&r, string s, int n)
+	{
+		if ( r == NULL )
+		{
+			r = new node; r->month = s; r->day = n;
+			r->left = NULL; r->right = NULL;
+		}
+		else
+		{
+			if ( s < r->month ) insert ( r->left, s, n);
+			if ( s > r->month ) insert ( r->right, s, n);
+		}
+	}
+//=========================== CopyData =================================
+	void CopyData(string fname, node *&r)
+	{
+		fstream f;
+		f.open(fname, ios::in);
+		string s;
+		int n;
+		while (!f.eof())
+		{
+			f >> s;
+			f >> n;
+			insert(r, s, n);
+		}
+	}
+//=========================== DisplayInorder ============================
+	void DisplayInorder(node *r)
+	{
+		if ( r != NULL )
+		{
+			DisplayInorder(r->left);											//left child
+			cout << left << setw(9) << r->month << '\t' << r->day << endl;;		//parent
+			DisplayInorder(r->right);											//right child
+		}
+	}
+//=========================== DisplayLeaves =============================
+	void DisplayLeaves(node *r)
+	{
+		if ( r!=NULL )
+		{
+			if ( r->left == NULL && r->right == NULL )
+			{
+				cout << r->month << ' ';
+			}
+			DisplayLeaves(r->left);
+			DisplayLeaves(r->right);
+		}
+	}
+//=========================== DisplayParentsOfTwo =======================
+	void DisplayParentsOfTwo(node *r)
+	{
+		if ( r!=NULL )
+		{
+			if ( r->left != NULL && r->right != NULL )
+			{
+				cout << r->month << ' ';
+			}
+			DisplayParentsOfTwo(r->left);
+			DisplayParentsOfTwo(r->right);
+		}
+	}
+//=========================== DisplayParentsOfOne =======================
+	void DisplayParentsOfOne(node *r)
+	{
+		if ( r!=NULL )
+		{
+			if ( r->left != NULL && r->right == NULL )
+			{
+				cout << r->month << ' ';
+			}
+			if ( r->left == NULL && r->right != NULL )
+			{
+				cout << r->month << ' ';
+			}
+			DisplayParentsOfOne(r->left);
+			DisplayParentsOfOne(r->right);
+		}
+	}
+//=========================== CountNodes ===============================
+	int CountNodes(node *r, int &x)
+	{
+		if ( r!=NULL )
+		{
+			CountNodes(r->left,x);
+			CountNodes(r->right,x);
+			x++;
+		}
+		return x;
+	}
+//=========================== FindHeight ================================
+	int FindHeight(node *r)
+	{
+		if ( r == NULL) 
+			return 0;
+		else 
+			return 1+max(FindHeight(r->left),FindHeight(r->right));
+	}
+	int max( int x, int y )
+	{
+		return ((x>y)? x:y);
+	}
+};
+int main()
+{
+	//declaring variables
+	BST date;
+	node *root = NULL;
+
+	//display name of month using Inorder followed by the days
+	date.CopyData("dates.txt", root);
+	cout << left << setw(9) << "Month's name\tNo. Days\n";
+	cout << "------------------------\n";
+	date.DisplayInorder(root);
+
+	//display leaves of the tree using Inorder
+	cout << "Leaves of the tree are: ";
+	date.DisplayLeaves(root);
+	cout << endl;
+
+	//display parents with two child's
+	cout << "Parents with two children are: ";
+	date.DisplayParentsOfTwo(root);
+	cout << endl; 
+
+	//display parents of one child
+	cout << "Parents with one child are: ";
+	date.DisplayParentsOfOne(root);
+	cout << endl;
+
+	//display number of nodes
+	int x = 0;
+	cout << "There are " << date.CountNodes(root, x) << " nodes in the tree\n";
+
+	//find the height of tree
+	cout << "The height of tree is " << date.FindHeight(root) << endl;
+
+	system("pause");
+	return 0;
+}
+/*====================================PROGRAM OUTPUT==============================
+Month's name    No. Days
+------------------------
+April           30
+August          31
+December        31
+February        28
+January         31
+July            31
+June            30
+March           31
+May             31
+November        30
+October         31
+September       30
+Leaves of the tree are: December July November
+Parents with two children are: January March
+Parents with one child are: February April August June May September October
+There are 12 nodes in the tree
+The height of tree is 6
+Press any key to continue . . .
+=================================================================================*/
