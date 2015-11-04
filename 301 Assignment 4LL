@@ -1,0 +1,233 @@
+#include <iostream>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cerrno>
+#include <sys/wait.h>
+
+class NodeType
+{
+public: 
+	NodeType *head=NULL;
+	int info;
+	NodeType *nextPtr;
+
+	NodeType(int data = 0);
+	void insert(NodeType *&head);
+	void print(NodeType *head);
+	void Delete(NodeType *&head);
+	void Find(NodeType *head);
+	void DeleteKey(NodeType *&head, int number);
+};
+
+// Constructor
+NodeType::NodeType(int data) {
+	info = data;
+	nextPtr = 0;
+}
+
+using namespace std;
+
+
+int main()
+{
+	int data = 0;
+	NodeType * head = NULL;
+	char user = ' ';
+	string value = " ";	
+
+	while (user !='Q')
+	{
+		cout<<"Menu: \n Choose to: ADD, PRINT, QUIT, DELETE, FIND";
+		cout<<"(A for add P for print k for delete key and Q for quit.....) \n";
+		cin >> user;
+		user = toupper(user);
+		if(user == 'A')
+		{
+			head->insert(head);
+		}
+		else if(user == 'P')
+		{
+		//	currentPtr = head;
+		//	while (currentPtr !=  NULL)
+		//	{
+		//		cout<<currentPtr->info<<" ";
+		//		currentPtr = currentPtr->nextPtr;
+		//	}
+		
+			
+		//	cout<<endl;
+			head->print(head);
+		}
+		else if(user == 'D')
+		{
+			cout<<"\n deleting head! ";
+			head->Delete(head);
+		}
+		else if(user == 'F')
+		{
+			head->Find(head);
+		}
+		else if(user == 'K')
+		{
+			//currentPtr = head;
+			head->DeleteKey(head, 1);	
+		}
+	}
+	
+
+	cin>>value;
+	return 0;
+}
+void NodeType::insert( NodeType *&head)
+{
+	int value = 0;
+	cout<<"Please enter a number to insert into list ";
+	cin>>value;
+	NodeType *currentPtr = new NodeType;
+	currentPtr->info = value;
+	
+
+	//case empty
+	if(head==NULL)
+	{
+		currentPtr->nextPtr=NULL;
+		head = currentPtr;
+	}
+	else
+	{
+		currentPtr->nextPtr = head;
+		head = currentPtr;
+	}
+
+}
+void NodeType::print(NodeType *head)
+{
+	NodeType *currentPtr = head;
+
+	cout<<"In print funtion!";
+	if(head == NULL)
+	{
+		cout<<"\n List is empty \n";
+	}
+	while (currentPtr !=  NULL)
+	{
+		cout<<currentPtr->info<<" ";
+		currentPtr = currentPtr->nextPtr;
+	}
+
+
+}
+//delete the head and reset the head
+void NodeType::Delete(NodeType *&head)
+{
+	//exception handling
+	if(head == NULL)
+	{
+		cout<<"\n\n List is already empty!!\n\n";
+	}
+	else
+	{
+		NodeType *currentPtr = head;
+		head = head->nextPtr;
+		delete currentPtr;
+	}
+}
+void NodeType::Find(NodeType *head)
+{
+	int number;
+	NodeType *currentPtr = head;
+	cout<<"\n Enter a number to find \n";
+	
+	cin>>number;
+
+	//check to see if list is empty
+	if(head == NULL)
+	{
+		cout<<"List is empty";
+		
+	}
+	else	//not empty
+	{	
+		while (currentPtr != NULL)
+		{
+		
+			if(number == currentPtr->info)
+			{
+				cout<<"\n Found! \n";
+				break;
+			}
+			else
+			{
+				currentPtr = currentPtr->nextPtr;
+				if(currentPtr == NULL)
+				{
+					cout<<"\n Not found!!";
+				}
+			}					
+		}
+	}
+
+}
+//comment pay attention to what you do with the head pointer 
+// in each case!!!
+void NodeType::DeleteKey(NodeType *&head,int number)
+{
+	int counter = 0;
+	NodeType *currentPtr = head;
+	NodeType *previousPtr = head;
+	cout<<"THE VALUE OF HEAD IS "<<head->info;
+	cout<<"\n Enter a number to delete \n";
+	cin>>number;
+
+	//check to see if list is empty
+	if(currentPtr == NULL)
+	{
+		cout<<"List is empty";
+	}
+	else	//not empty
+	{
+		//Now check to find MATCH!	
+		while(currentPtr!=NULL)
+		{	//match
+			if(number==currentPtr->info)
+			{
+				//case front, middle, or back
+				//case front
+				if(currentPtr == head)
+				{
+					head = head->nextPtr;
+					delete currentPtr;
+					break;
+			//		currentPtr = head;
+				}//case back
+				if(currentPtr->nextPtr==NULL)
+				{
+					previousPtr->nextPtr = NULL;
+					cout<<"\nFound "<<currentPtr->info<<" and deleting back....";
+					delete currentPtr;
+				//	currentPtr = NULL;
+				}//case middle
+				else if(currentPtr->nextPtr!=NULL && counter!=0)
+				{
+					previousPtr->nextPtr = currentPtr->nextPtr;
+					cout<<"\nFound "<<currentPtr->info<<" and deleting middle....";
+					delete currentPtr;
+					currentPtr = NULL;
+				}
+			}//not a match!!
+			else		
+			{	
+				previousPtr = currentPtr;
+				counter++;
+				currentPtr = currentPtr->nextPtr;
+				if(currentPtr == NULL)
+				{
+					cout<<"\n Not Found!";
+				}	
+			}
+		}	
+
+	}
+	
+}
