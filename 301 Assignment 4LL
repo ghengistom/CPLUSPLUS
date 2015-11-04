@@ -1,3 +1,4 @@
+#include <string.h>
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
@@ -38,9 +39,15 @@ int main()
 
 	while (user !='Q')
 	{
-		cout<<"Menu: \n Choose to: ADD, PRINT, QUIT, DELETE, FIND";
-		cout<<"(A for add P for print k for delete key and Q for quit.....) \n";
+		cout<<"\nMenu: \n Choose to: ADD(A), PRINT(P), QUIT(Q), DELETE(D),";
+		cout<<"FIND(F), DELETEKEY(K)\n";
+		cout<<"	(A for add P for print k for delete key and Q for quit.....) \n";
 		cin >> user;
+		if(user==isdigit(user))
+		{
+			break;	
+		}
+		cout<<endl;
 		user = toupper(user);
 		if(user == 'A')
 		{
@@ -48,15 +55,6 @@ int main()
 		}
 		else if(user == 'P')
 		{
-		//	currentPtr = head;
-		//	while (currentPtr !=  NULL)
-		//	{
-		//		cout<<currentPtr->info<<" ";
-		//		currentPtr = currentPtr->nextPtr;
-		//	}
-		
-			
-		//	cout<<endl;
 			head->print(head);
 		}
 		else if(user == 'D')
@@ -75,7 +73,7 @@ int main()
 		}
 	}
 	
-
+	cout<<"Enter anything to exit";
 	cin>>value;
 	return 0;
 }
