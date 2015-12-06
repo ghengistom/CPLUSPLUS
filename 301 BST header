@@ -77,7 +77,17 @@ public:
 	// Think of this as retrieving a record based on a key value.
 	bool retrieve(ItemType searchItem, ItemType & foundItem)
 	{
-		if (searchItem == foundItem->)
+	
+		if (rootPtr != NULL)
+		{
+		retrieveHelper(searchItem, rootPtr, foundItem);
+		return true;
+		}
+		else
+		return false;
+	
+		
+		
 	};
 	// Given a deleteItem, it deletes from the tree any item where item
 	// == deleteItem.
@@ -246,4 +256,34 @@ bool Tree<ItemType>::deleteHelper(TreeNode< ItemType > * &rootPtr, ItemType data
 		return rootPtr;
 	}
 }
+
+
+template <class ItemType>
+bool Tree<ItemType>::retrieveHelper(ItemType searchItem, TreeNode< ItemType > * &rootPtr, ItemType & foundItem)
+{
+	if (rootPtr != NULL)
+	{
+		if (searchItem == rootPtr->data)
+		{
+			foundItem == rootPtr->data;
+			return true;
+		}
+		else 
+		{
+			if (searchItem < rootPtr->data)
+			{
+				retrieveHelper(searchItem, rootPtr->leftPtr, foundItem);
+			}
+
+			else if (searchItem > rootPtr->data)
+			{
+				retrieveHelper(searchItem, rootPtr->rightPtr, foundItem);
+			}
+		}
+	}
+	
+	else
+		return false;
+}
+
 
